@@ -40,7 +40,7 @@ export default async function AuthenticationPage() {
                 <Link
                     href="/login"
                     className={cn(
-                        buttonVariants({ variant: "ghost" }),
+                        buttonVariants({ variant: "outline" }),
                         "absolute right-4 top-4 md:right-8 md:top-8"
                     )}
                 >
