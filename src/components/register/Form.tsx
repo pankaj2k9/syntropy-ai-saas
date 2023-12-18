@@ -36,7 +36,6 @@ export function Form({ className, ...props }: UserAuthFormProps) {
           password: password,
         }),
       });
-      console.log("response", response)
       if (!response?.error) {
         setIsLogin(true)
 

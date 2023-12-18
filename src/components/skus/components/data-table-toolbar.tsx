@@ -6,11 +6,9 @@ import { Table } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { priorities, statuses } from "../data/data"
-import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import { DataTableViewOptions } from "./data-table-view-options"
-import { Search } from "lucide-react"
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { Context } from "@/provider/ContextProvider"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -21,7 +19,21 @@ export function DataTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
   const [filterableText, setFilterableText] = useState<string>('')
   const isFiltered = table.getState().columnFilters.length > 0
+  const { info, updateInfo } = useContext(Context);
 
+  useEffect(() => {
+    if(info.searchText) {
+      table.getColumn("title")?.setFilterValue(info.searchText)
+      setFilterableText(info.searchText)
+    }
+  }, [info, table])
+
+  const onHandleSearch = () => {
+    table.getColumn("title")?.setFilterValue(filterableText)
+    if(info.searchText) {
+      updateInfo({ searchText: '', isFirst: false });
+    }
+  }
 
   return (
     <div className="flex items-center justify-between">
@@ -35,25 +47,11 @@ export function DataTableToolbar<TData>({
             }
             className="h-10 w-full mr-4"
           />
-          <Button className="mr-4" onClick={() =>   table.getColumn("title")?.setFilterValue(filterableText)}>
+          <Button className="mr-4" onClick={onHandleSearch}>
              Search
           </Button>
         </div>
 
-        {table.getColumn("status") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("status")}
-            title="Status"
-            options={statuses}
-          />
-        )}
-        {table.getColumn("priority") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("priority")}
-            title="Priority"
-            options={priorities}
-          />
-        )}
         {isFiltered && (
           <Button
             variant="ghost"

@@ -1,10 +1,18 @@
-import React from 'react'
+"use client"
+import React, { useContext, useState } from 'react'
 import Image from 'next/image';
 import serachLogo from "/public/search-logo.jpg"
 import { Button } from '../ui/button';
 import { Search } from 'lucide-react';
+import { Context } from '@/provider/ContextProvider';
 
 function SKUlists() {
+    const [search, setSearch] = useState<string>('')
+    const { updateInfo } = useContext(Context);
+
+    const onHandleSearch = () => {
+        updateInfo({ searchText: search, isFirst: false });
+    }
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-16">
             <div className="text-left mb-10 w-full">
@@ -16,10 +24,12 @@ function SKUlists() {
                 <div className="flex w-full">
                     <input
                         type="text"
+                        value={search}
                         placeholder="HES5B-VLW"
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
                         className="shadow-md focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 mx-4 rounded-md"
                     />
-                    <Button>
+                    <Button onClick={onHandleSearch}>
                         <Search className="mr-2 h-4 w-4" /> Search
                     </Button>
                 </div>

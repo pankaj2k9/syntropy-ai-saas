@@ -3,11 +3,9 @@
 import { ColumnDef } from "@tanstack/react-table"
 import Image from 'next/image';
 
-import { labels } from "../data/data"
 import { SKU } from "../data/schema"
 import { DataTableColumnHeader } from "./data-table-column-header"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Badge } from "@/components/ui/badge"
 import { FileText } from "lucide-react"
 import Link from "next/link"
 
@@ -42,8 +40,6 @@ export const columns: ColumnDef<SKU>[] = [
       <DataTableColumnHeader column={column} title="" />
     ),
     cell: ({ row }) => {
-      console.log(row.getValue("logo"))
-      console.log(row.getValue("title"))
       return (
       <div className="w-[80px]">
         <Image
@@ -63,13 +59,13 @@ export const columns: ColumnDef<SKU>[] = [
       <DataTableColumnHeader column={column} title="Title, Description and Vendor" />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label)
 
       return (
         <div className="flex space-x-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("title")}
+            {row.getValue("title")}<br/>
+            {row.original.description}<br/>
+            {row.original.vendor}
           </span>
         </div>
       )
@@ -109,9 +105,9 @@ export const columns: ColumnDef<SKU>[] = [
     },
   },
   {
-    accessorKey: "dataset",
+    accessorKey: "datasheet",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="DataSets" />
+      <DataTableColumnHeader column={column} title="DataSheet" />
     ),
     cell: ({ row }) => {
       return (

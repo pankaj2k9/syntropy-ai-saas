@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { getServerSession } from 'next-auth';
-import Link from 'next/link';
+import ContextProvider from '@/provider/ContextProvider';
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -17,11 +16,12 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
   return (
     <html lang="en">
       <body className={inter.className}>
-        {children}
+        <ContextProvider>
+          {children}
+        </ContextProvider>
       </body>
     </html>
   );
