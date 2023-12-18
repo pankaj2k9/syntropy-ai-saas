@@ -20,7 +20,7 @@ function SKUlists() {
                         className="shadow-md focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 mx-4 rounded-md"
                     />
                     <Button>
-                        <Search className="mr-2 h-4 w-4" /> Login with Email
+                        <Search className="mr-2 h-4 w-4" /> Search
                     </Button>
                 </div>
 

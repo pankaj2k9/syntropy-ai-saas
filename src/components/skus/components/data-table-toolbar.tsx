@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input"
 import { priorities, statuses } from "../data/data"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import { DataTableViewOptions } from "./data-table-view-options"
+import { Search } from "lucide-react"
+import { useState } from "react"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -17,19 +19,27 @@ interface DataTableToolbarProps<TData> {
 export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
+  const [filterableText, setFilterableText] = useState<string>('')
   const isFiltered = table.getState().columnFilters.length > 0
+
 
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
-        <Input
-          placeholder="Filter tasks..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
-          }
-          className="h-8 w-[150px] lg:w-[250px]"
-        />
+        <div className="flex flex-1 w-full">
+          <Input
+            placeholder="Filter tasks..."
+            value={filterableText}
+            onChange={(event) =>
+              setFilterableText(event.target.value)
+            }
+            className="h-10 w-full mr-4"
+          />
+          <Button className="mr-4" onClick={() =>   table.getColumn("title")?.setFilterValue(filterableText)}>
+             Search
+          </Button>
+        </div>
+
         {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}

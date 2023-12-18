@@ -21,7 +21,6 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [loading, setLoading] = React.useState<boolean>(false)
-  const [isLogin, setIsLogin] = React.useState<boolean>(false)
   const [err, setErr] = React.useState<any>(null)
   const [email, setEmail] = React.useState<any>("")
   const [password, setPassword] = React.useState<any>("")
@@ -29,6 +28,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const router = useRouter();
   async function onSubmit(e: any) {
     e.preventDefault();
+    setLoading(true)
     try {
     const response:any= await signIn('credentials', {
       email: email,
