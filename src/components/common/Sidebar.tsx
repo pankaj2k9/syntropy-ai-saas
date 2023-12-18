@@ -3,7 +3,7 @@ import SignOut from '../logout/SignOut'
 
 function Sidebar() {
     return (
-        <div className="flex flex-col w-64 h-full pb-16 justify-between bg-gray-100">
+        <div className="flex flex-col h-full pb-16 justify-between bg-gray-100">
 
             <div className="flex flex-col py-4 px-4">
                 <div className="flex items-center justify-center h-16">
