@@ -11,7 +11,7 @@ function SKUlists() {
     const { updateInfo } = useContext(Context);
 
     const onHandleSearch = () => {
-        updateInfo({ searchText: search, isFirst: false });
+        updateInfo({ searchText: search, isFirst: true });
     }
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-16">
